@@ -1,0 +1,30 @@
+HTML
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Interactive Python on GitHub Pages</title>
+  <link rel="stylesheet" href="https://pyscript.net/releases/2024.11.1/core.css" />
+  <script type="module" src="https://pyscript.net/releases/2024.11.1/core.js"></script>
+</head>
+<body>
+  <h2>Compound Growth Calculator (Python in Browser)</h2>
+  <label>Principal (£): <input id="principal" type="number" value="1000" /></label>
+  <label>Annual Rate (%): <input id="rate" type="number" value="5" step="0.1" /></label>
+  <label>Years: <input id="years" type="number" value="10" /></label>
+  <button id="calc-btn">Calculate</button>
+  <pre id="output"></pre>
+
+  <script type="py">
+    from pyscript import document, when
+
+    @when("click", "#calc-btn")
+    def calculate(event):
+        p = float(document.querySelector("#principal").value or 0)
+        r = float(document.querySelector("#rate").value or 0) / 100
+        y = int(document.querySelector("#years").value or 0)
+        final_amount = p * ((1 + r) ** y)
+        document.querySelector("#output").innerText = f"Projected value: £{final_amount:,.2f}"
+  </script>
+</body>
+</html>
